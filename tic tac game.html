@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Tic Tac Teo & Glow</title>
+</head>
+
+<body>
+     <div class=" flex flex-col h-screen justify-center items-center w-screen absolute">
+        <div class=" items-center w-screen bg-gray-800 text-white h-10 pl-6 pt-2 text-2xl underline"> Tic Tac Teo Game</div>
+        <div class="flex flex-col items-center justify-center gap-10 bg-white h-screen " id="container">
+
+            <div class="text-4xl font-semibold" id="move-js"> </div>
+            <div class="flex flex-row items-center justify-center bg-black gap-2 shadow-2xl rounded-xl  ">
+                <div class="flex flex-col items-center justify-center gap-2 ">
+                    <div class="flex flex-col  items-center justify-center w-28 h-32 bg-white curser-pointer text-8xl hover:bg-gray-200 font-bold rounded-md border-2 border-gray-10 hover;border-2 border-gray-10 hover:border-4 hover:border-blue-500 hover:transition-all blocks"
+                        id="1"></div>
+                    <div class="flex flex-col  items-center justify-center w-28 h-32 bg-white curser-pointer text-8xl hover:bg-gray-200 font-bold rounded-md border-2 border-gray-10 hover;border-2 border-gray-10 hover:border-4 hover:border-blue-500 hover:transition-all blocks"
+                        id="4"></div>
+                    <div class="flex flex-col  items-center justify-center w-28 h-32 bg-white curser-pointer text-8xl hover:bg-gray-200 font-bold rounded-md border-2 border-gray-10 hover;border-2 border-gray-10 hover:border-4 hover:border-blue-500 hover:transition-all blocks"
+                        id="7"></div>
+                </div>
+
+
+                <div class="flex flex-col items-center justify-center gap-2 ">
+                    <div class="flex flex-col  items-center justify-center w-28 h-32 bg-white curser-pointer text-8xl hover:bg-gray-200 font-bold rounded-md border-2 border-gray-10 hover;border-2 border-gray-10 hover:border-4 hover:border-blue-500 hover:transition-all blocks"
+                        id="2"></div>
+                    <div class="flex flex-col  items-center justify-center w-28 h-32 bg-white curser-pointer text-8xl hover:bg-gray-200 font-bold rounded-md border-2 border-gray-10 hover;border-2 border-gray-10 hover:border-4 hover:border-blue-500 hover:transition-all blocks"
+                        id="5"></div>
+                    <div class="flex flex-col  items-center justify-center w-28 h-32 bg-white curser-pointer text-8xl hover:bg-gray-200 font-bold rounded-md border-2 border-gray-10 hover;border-2 border-gray-10 hover:border-4 hover:border-blue-500 hover:transition-all blocks"
+                        id="8"></div>
+                </div>
+
+
+                <div class="flex flex-col items-center justify-center gap-2 ">
+                    <div class="flex flex-col  items-center justify-center w-28 h-32 bg-white curser-pointer text-8xl hover:bg-gray-200 font-bold rounded-md border-2 border-gray-10 hover;border-2 border-gray-10 hover:border-4 hover:border-blue-500 hover:transition-all blocks"
+                        id="3"></div>
+                    <div class="flex flex-col  items-center justify-center w-28 h-32 bg-white curser-pointer text-8xl hover:bg-gray-200 font-bold rounded-md border-2 border-gray-10 hover;border-2 border-gray-10 hover:border-4 hover:border-blue-500 hover:transition-all blocks"
+                        id="6"></div>
+                    <div class="flex flex-col  items-center justify-center w-28 h-32 bg-white curser-pointer text-8xl hover:bg-gray-200 font-bold rounded-md border-2 border-gray-10 hover;border-2 border-gray-10 hover:border-4 hover:border-blue-500 hover:transition-all blocks"
+                        id="9"></div>
+                </div>
+            </div>
+            
+        </div>
+        <div id="win-js"> </div>
+        <input type="button" value="Restart" class=" z-50 w-screen text-3xl bg-gray-200 border-2 border-black p-3 pt-1 pb-1 rounded-md duration-700 hover:bg-red-300 hover:border-4 hover:text-3xl hover:transition-all hover:duration-700" id="start"/>
+     </div>
+
+    
+
+
+
+    <script>
+        var blockElement = document.getElementsByClassName("blocks");
+        var Move = "0";
+        var pre_move ="x"
+        var clickedBox = "";
+        var zeroStoreValue = "";
+        var crossStoreValue = "";
+
+        for (var i = 0; i < blockElement.length; i++) {
+            blockElement[i].addEventListener('click', main)
+        }
+
+        function main(event) {
+            if (clickedBox.indexOf(event.target.id) >= 0) {
+                // console.log(Move);
+                
+                document.getElementById("move-js").innerHTML=`${Move} Move Invalid `;
+                return;
+            }
+
+            setData(event.target, Move)
+            clickedBox = clickedBox + event.target.id;
+
+            if (Move == "0") {
+                zeroStoreValue = zeroStoreValue + event.target.id;
+                winner(zeroStoreValue);
+                document.getElementById("move-js").innerText="X Move";
+                Move = "X";
+                pre_move="X";
+            } else {
+                crossStoreValue = crossStoreValue + event.target.id;
+                winner(crossStoreValue);
+                document.getElementById("move-js").innerText="0 Move";
+                Move = "0";
+                pre_move="0";
+            }
+        }
+
+ 
+        function setData(element, value) {
+            element.innerText = value;
+        }
+
+        // function winner(value, a) {
+        //     if (value.length < 3) {
+        //         return;
+                
+        //     }
+
+        //     if( value.indexOf("1") >= 0 && value.indexOf("2") >= 0 && value.indexOf("3") >= 0){
+        //         print()
+        //         return;
+        //     }
+
+        //     if( value.indexOf("4") >= 0 && value.indexOf("5") >= 0 && value.indexOf("6") >= 0){
+        //         print()
+        //         return;
+        //     }
+
+        //     if( value.indexOf("7") >= 0 && value.indexOf("8") >= 0 && value.indexOf("9") >= 0){
+        //         print()        
+        //         return;
+        //     }
+
+        //     if( value.indexOf("1") >= 0 && value.indexOf("4") >= 0 && value.indexOf("7") >= 0){
+        //         print()               
+        //         return;
+        //     }
+
+        //     if( value.indexOf("2") >= 0 && value.indexOf("5") >= 0 && value.indexOf("8") >= 0){
+        //         print()                
+        //         return;
+        //     }
+
+        //     if( value.indexOf("3") >= 0 && value.indexOf("6") >= 0 && value.indexOf("9") >= 0){
+        //         print()        
+        //         return;
+        //     }
+
+        //     if( value.indexOf("7") >= 0 && value.indexOf("5") >= 0 && value.indexOf("3") >= 0){
+        //         print()  
+        //         return;
+        //     }
+
+        //     if( value.indexOf("1") >= 0 && value.indexOf("5") >= 0 && value.indexOf("9") >= 0){
+        //         print()  
+        //         return;
+        //     }            
+        // }
+
+        function winner(value) {
+            if (value.length < 3) {
+                return;
+                
+            }
+ 
+            winner_finder(value, 1,2,3);
+            winner_finder(value, 4,5,6);
+            winner_finder(value, 7,8,9);
+            winner_finder(value, 1,4,7);
+            winner_finder(value, 2,5,8);
+            winner_finder(value, 3,6,9);
+            winner_finder(value, 7,5,3);
+            winner_finder(value, 1,5,9);
+        }
+
+        function winner_finder(value, value1, value2, value3){
+            if( value.indexOf(value1) >= 0 && value.indexOf(value2) >= 0 && value.indexOf(value3) >= 0){
+                print();
+            }
+                return;
+        }
+
+
+        function print(){
+            // setTimeout(function(){
+                document.getElementById("container").setAttribute("class","blur-sm")
+                var displayWin= document.getElementById("win-js");
+                displayWin.setAttribute("class", " text-9xl h-screen w-screen relative flex justify-center items-center");
+                displayWin.innerText= `${pre_move} Win Game`;
+
+                         
+                
+         
+                // document.getElementById("win-js").innerText= "Win Game";
+                // location.reload();
+            // }, 50)
+        }
+
+        function Start(event){
+            
+            location.reload();
+        }
+ 
+        document.getElementById("start").addEventListener("click", Start);
+    </script>
+</body>
+
+</html>
